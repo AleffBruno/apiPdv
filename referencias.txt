@@ -1,0 +1,11 @@
+Tutoriais de api com typescript {
+    https://itnext.io/production-ready-node-js-rest-apis-setup-using-typescript-postgresql-and-redis-a9525871407
+
+    https://itnext.io/building-restful-web-apis-with-node-js-express-mongodb-and-typescript-part-1-2-195bdaf129cf
+
+    https://medium.com/javascript-in-plain-english/creating-a-rest-api-with-jwt-authentication-and-role-based-authorization-using-typescript-fbfa3cab22a4
+}
+
+Libs ACL {
+    https://www.npmjs.com/package/express-rbac
+}
