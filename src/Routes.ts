@@ -1,5 +1,7 @@
 import { Router, Request, Response } from "express";
 import UserController from './app/controllers/UserController';
+import PhotoController from './app/controllers/PhotoController';
+
 
 const routes = Router();
 
@@ -10,6 +12,7 @@ const routes = Router();
 
 
 routes.get('/user',UserController.GetUsers)
+routes.get('/photo',PhotoController.Create)
 
 export default routes;
 
