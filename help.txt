@@ -1,0 +1,12 @@
+
+app = onde fica as funcoes pricipais da aplicação como controller, models, services
+
+config = onde ficam configs com settar configurações de envio de email, serviços de logs e etc...
+
+database = onde ficam as migrations
+
+App.ts = "CORE" da api, onde sao inicializado configurações de conecao com o banco, middewares globais
+
+Routes.ts = onde ficam TODAS as rotas ( parecido com o web.php do laravel)
+
+Server.ts = arquivo onde inicio o servidor ( nao tem muita importancia e acho que nuca mais sera mechido )
