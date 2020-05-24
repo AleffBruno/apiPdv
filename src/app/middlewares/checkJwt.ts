@@ -8,6 +8,10 @@ export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
   //verificar outros headers como Authorization / retirar o Bearer......
   const bearerToken = <string>req.headers["auth"] || <string>req.headers.authorization || <string>req.headers['Authorization'];
 
+  if (!bearerToken) {
+    return res.status(401).json({error:'token not provided'})
+}
+
   const [,token] = bearerToken.split(' '); // splita o "Bearer" do token, e pega somente o token
 
   let jwtPayload;
@@ -16,20 +20,21 @@ export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
   try {
     jwtPayload = <any>jwt.verify(token, <string>authConfig.secret);
     res.locals.jwtPayload = jwtPayload;
+    next();
   } catch (error) {
     //If token is not valid, respond with 401 (unauthorized)
-    res.status(401).json({msg:"401 - nao autorizado"});
-    return;
+    // res.status(401).json({msg:"401 - nao autorizado"});
+    return res.status(401).json({error:'token invalid'})
   }
 
-  //The token is valid for 1 hour
-  //We want to send a new token on every request
-  const { userId, username } = jwtPayload;
-  const newToken = jwt.sign({ userId, username }, <string>authConfig.secret, {
-    expiresIn: authConfig.expiresIn
-  });
-  res.setHeader("token", newToken);
 
-  //Call the next middleware or controller
-  next();
+  // SE QUISER ENVIAR UM NOVO TOKEN A CADA NOVO REQUEST, DESCOMENTE ESSE CODIGO, E RETIRE O 'next();' ACIMA
+  //We want to send a new token on every request
+  // const { userId, username } = jwtPayload;
+  // const newToken = jwt.sign({ userId, username }, <string>authConfig.secret, {
+  //   expiresIn: authConfig.expiresIn
+  // });
+  // res.setHeader("token", newToken);
+
+  // next();
 };

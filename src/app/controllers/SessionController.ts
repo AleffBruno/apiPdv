@@ -9,21 +9,40 @@ import { User } from "../models/User";
 
 class SessionController{
     public login = async (req:Request, res:Response) => {
-        //Check if username and password are set
-        // let { username, password } = req.body;
-        // if (!(username && password)) {
-        //     res.status(400).send("falta credenciais");
-        // }
-        
-        //Sing JWT, valid for 1 hour
+        //Check if email and password are set
+        let { email, password } = req.body;
+        if (!(email && password)) {
+            // precisa de return?
+            return res.status(400).json({msg:"falta dados"});
+        }
+
+        //Get user from database
+        const userRepository = getRepository(User);
+        let user: User;
+        try {
+            user = await userRepository.findOneOrFail({ where: { email } });
+        } catch (error) {
+            // precisa de return?
+            return res.status(401).json({msg:"Dados incorretos"});
+        }
+
+        //Check if encrypted password match
+        if (!user.checkIfUnencryptedPasswordIsValid(password)) {
+            return res.status(401).json({msg:"Dados incorretos_"});
+        }
+
         const token = jwt.sign(
-            { userId: 1, username: "jose" },
+            { userId: user.id },
             <string>authConfig.secret,
             { expiresIn: authConfig.expiresIn }
         );
 
         //Send the jwt in the response
-        res.json({token});
+        return res.json({
+            name: user.name,
+            email,
+            token
+        });
     };
 }
 
