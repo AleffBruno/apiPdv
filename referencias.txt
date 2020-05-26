@@ -1,3 +1,5 @@
+>> PARA RODAR ESSE PROJETO É NECESSARIO TER O "TS-NODE" INSTALADO GLOBALMENTE ( $ npm i -g ts-node )
+
 Tutoriais de api com typescript {
     https://itnext.io/production-ready-node-js-rest-apis-setup-using-typescript-postgresql-and-redis-a9525871407
 
@@ -9,4 +11,9 @@ Tutoriais de api com typescript {
 Biblioteca ACL : https://www.npmjs.com/package/express-rbac
     
 Biblioteca class-validator : https://github.com/typestack/class-validator
+
+migrations {
+    criar migration: $ node_modules/.bin/typeorm migration:create -n {NOME_DA_MIGRATION}
+    rodar migraiton: $ ts-node node_modules/typeorm/cli.js migration:run
+}
 

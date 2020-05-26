@@ -40,23 +40,26 @@ class App {
         //     EX CORRETO: dist/model/*.js
         // }
 
-        await createConnection({
-            type: "mysql",
-            host: process.env.DB_HOST,
-            port: 3306,
-            username: process.env.DB_USER,
-            password: process.env.DB_PASS,
-            database: process.env.DB_NAME,
-            entities: [
-                "dist/app/models/*.js"
-            ],
-            migrations: [
-                "./database/migrations/*.ts"
-            ],
-            cli: { "migrationsDir": "./database/migrations" },
-            synchronize: true, //COLOQUE 'FALSE' QUANDO COMEÇAR A PROD
-            logging: false
-        }).then(connection => {
+        await createConnection(
+            //COMENTADO PORQUE EXISTE ormconfig.json
+            // {
+            //     type: "mysql",
+            //     host: process.env.DB_HOST,
+            //     port: 3306,
+            //     username: process.env.DB_USER,
+            //     password: process.env.DB_PASS,
+            //     database: process.env.DB_NAME,
+            //     entities: [
+            //         "dist/app/models/*.js"
+            //     ],
+            //     migrations: [
+            //         "dist/database/migrations/*.js"
+            //     ],
+            //     cli: { "migrationsDir": "src/migrations/" },
+            //     synchronize: true, //COLOQUE 'FALSE' QUANDO COMEÇAR A PROD
+            //     logging: false
+            // }
+        ).then(connection => {
             console.log(">TYPEORM CONECTADO<")
             // here you can start to work with your entities
         }).catch(error => console.log(error));
