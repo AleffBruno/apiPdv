@@ -1,18 +1,13 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class createTableUsers1590351838392 implements MigrationInterface {
+export class createTableCity1590612882629 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            CREATE TABLE users (
+            CREATE TABLE city (
                 id integer UNSIGNED NOT NULL,
                 name varchar(255),
-                email varchar(50),
-                password varchar(50),
-                isAdmin BIT,
-                commission varchar(50),
-                phone varchar(50),
-                companyId integer
+                stateId integer
             )
         `);
     }
