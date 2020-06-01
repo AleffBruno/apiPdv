@@ -6,7 +6,7 @@
     "password": "51da2020",
     "database": "pdvionic",
     "entities": [
-        "dist/app/models/*.js"
+        "src/app/models/*.ts"
     ],
     "migrations": [
         "src/database/migrations/*.ts"
