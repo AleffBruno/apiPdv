@@ -4,7 +4,7 @@ export class createTableCity1590612882629 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            CREATE TABLE city (
+            CREATE TABLE cities (
                 id integer UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 name varchar(255),
                 stateId integer

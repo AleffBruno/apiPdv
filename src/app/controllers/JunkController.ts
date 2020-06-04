@@ -3,8 +3,9 @@ import { getConnection } from "typeorm";
 
 import { User } from "../models/User";
 import { Company } from "../models/Company";
-
-
+import { Address } from "../models/Address";
+import { City } from "../models/City";
+import { State } from "../models/State";
 
 class JunkController{
     public junk = async (req:Request, res:Response) => {
@@ -34,8 +35,40 @@ class JunkController{
         user.company = company;
         await userRepository.save(user);
         
+        //cria address
+        let addressRepository = await getConnection().getRepository(Address);
+        const address = new Address();
+        address.neighborhood = "bairro";
+        address.cep = "11111111";
+        address.street = "rua xxxx";
+        address.number = "1";
+        address.complement = "complemento1";
 
-        return res.json(user);
+        //pega o estato com id 1 cadastrado no banco
+        let stateRepository = await getConnection().getRepository(State);
+        const state = await stateRepository.findOneOrFail({where:{id:1}});
+        if(!state) {
+            const newState = new State();
+            newState.name = "CE_DEV";
+            await stateRepository.save(newState);
+        }
+
+        //pega a cidade com id 1 cadastrado no banco
+        let cityRepository = await getConnection().getRepository(City);
+        const city = await cityRepository.findOneOrFail({where:{id:1}});
+        if(!city) {
+            const newCity = new City();
+            newCity.name = "FOR_DEV";
+            await cityRepository.save(newCity);
+        }
+
+        //associa state/city com address
+        address.city = city;
+        address.state = state;
+        await addressRepository.save(address);
+
+
+        return res.json(address);
     };
 }
 

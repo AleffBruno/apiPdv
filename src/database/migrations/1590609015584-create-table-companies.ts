@@ -7,7 +7,7 @@ export class createTableCompanies1590609015584 implements MigrationInterface {
             CREATE TABLE companies (
                 id integer UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 name varchar(255),
-                email varchar(50),
+                email varchar(255),
                 cpfCnpj varchar(30),
                 phone varchar(30),
                 addressId integer,
