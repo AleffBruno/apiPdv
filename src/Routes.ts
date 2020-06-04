@@ -3,6 +3,7 @@ import UserController from './app/controllers/UserController';
 import PhotoController from './app/controllers/PhotoController';
 import SessionController from './app/controllers/SessionController';
 import { checkJwt } from "./app/middlewares/checkJwt";
+import JunkController from "./app/controllers/JunkController";
 
 
 const routes = Router();
@@ -12,6 +13,7 @@ const routes = Router();
 //     next();
 // })
 
+routes.get("/junk",JunkController.junk);
 
 routes.post("/login", SessionController.login);
 routes.post("/user", UserController.create);

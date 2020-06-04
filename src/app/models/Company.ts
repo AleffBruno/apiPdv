@@ -1,6 +1,7 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
+import { User } from "./User";
 
-@Entity()
+@Entity('companies')
 export class Company {
 
     @PrimaryGeneratedColumn()
@@ -10,15 +11,18 @@ export class Company {
     name: string;
 
     @Column()
-    cpfcnpj: string;
+    email: string;
+
+    @Column()
+    cpfCnpj: string;
 
     @Column()
     phone: string;
 
     @Column()
-    email: string;
-
-    @Column()
     masterPassword: string;
+
+    @OneToMany(type => User, user => user.company)
+    users: User[];
     
 }

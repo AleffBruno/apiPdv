@@ -7,11 +7,11 @@ export class createTableUsers1590351838392 implements MigrationInterface {
             CREATE TABLE users (
                 id integer UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 name varchar(255),
-                email varchar(50),
-                password varchar(50),
+                email varchar(255),
+                password varchar(255),
                 isAdmin BIT,
                 commission varchar(50),
-                phone varchar(50),
+                phone varchar(255),
                 companyId integer
             )
         `);

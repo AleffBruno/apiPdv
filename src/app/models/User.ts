@@ -1,21 +1,22 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
 import { Length, IsNotEmpty } from "class-validator";
 import * as bcrypt from "bcryptjs";
-@Entity()
+import { Company } from "./Company";
+@Entity('users')
 export class User {
 
     @PrimaryGeneratedColumn()
     id: number;
 
-    @IsNotEmpty()
+    // @IsNotEmpty()
     @Column()
     name: string;
 
     @Column()
     email: string;
 
-    @Length(4, 20)
-    @IsNotEmpty()
+    // @Length(4, 20)
+    // @IsNotEmpty()
     @Column()
     password: string;
 
@@ -23,10 +24,15 @@ export class User {
     isAdmin: boolean;
 
     @Column({nullable: true})
-    comission: string;
+    commission: string;
 
     @Column()
     phone: string;
+
+    @ManyToOne(type => Company, company => company.users,/* {
+        cascade: ['insert']
+    } */)
+    company: Company;
 
     hashPassword(password : string) {
         // return this.password = bcrypt.hashSync(password, 8);
@@ -34,7 +40,6 @@ export class User {
     }
 
     checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
-        // porque usar 'compareSync' ??? 
         return bcrypt.compareSync(unencryptedPassword, this.password); 
     }
 

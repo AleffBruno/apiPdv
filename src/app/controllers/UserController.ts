@@ -25,7 +25,7 @@ class UserController{
         user.isAdmin = false;
         user.name = "99999999";
         user.phone = "99999999";
-        user.comission = "0";
+        user.commission = "0";
 
         await userRepository.save(user);
 

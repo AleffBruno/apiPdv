@@ -4,7 +4,7 @@ export class createTableAddress1590612037430 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            CREATE TABLE address (
+            CREATE TABLE addresses (
                 id integer UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 stateId integer,
                 cityId integer,

@@ -1,0 +1,11 @@
+> usaremos created_at e updated_at?
+> usaremos isActive para registros que foram deletados?
+> adicionar um hook no typeorm para criptografar a senha?
+> devese criar funções dentro da model de User ? possivelmente se deve criar no providers/services
+> comissao esta como string, deixa string? e deve separar o ponto flutuante por "." ou ","
+> usar mascara para campos como telefone, cpfCnpj, cep e etc... ?
+> se deve ter um campo "VIRTUAL" password apenas para validações ? e outro password_hash ?
+> verificar se o 'class-validator' tem confirm_password
+> o campo cpfCnpj pode dar dor de cabeça futuramente para relatorio, exemplo, Select TODAS as companies que forem CPF ( como que vai saber oque é cpf doque é cnpj? vai ter que dar select.all e depois verificar quem tem X digitos? muito ruim )
+> o nome das moldes nao esta no plural como as o nome das tabelas
+> é necessario preencher a tabela de state e citiesm deve-se utilizar migrations?

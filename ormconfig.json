@@ -3,10 +3,10 @@
     "host": "localhost",
     "port": 3306,
     "username": "root",
-    "password": "51da2020",
+    "password": "root",
     "database": "pdvionic",
     "entities": [
-        "dist/app/models/*.js"
+        "src/app/models/*.ts"
     ],
     "migrations": [
         "src/database/migrations/*.ts"
