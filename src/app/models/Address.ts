@@ -1,6 +1,7 @@
-import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from "typeorm";
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany, OneToOne} from "typeorm";
 import { State } from "./State";
 import { City } from "./City";
+import { Company } from "./Company";
 
 @Entity('addresses')
 export class Address {
@@ -43,4 +44,9 @@ export class Address {
 
     @ManyToOne(type => City, city => city.addresses)
     city: City;
+
+    // @OneToMany(type => Company, company => company.address)
+    // companies: Company[];
+    @OneToOne(type => Company, company => company.address)
+    company: Company;
 }

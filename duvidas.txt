@@ -1,3 +1,6 @@
+> DUVIDA FODA {
+    deve-se utilizar o ' "synchronize": true ' do typeorm, deixar ele gerar as tabelas, depois usar um gerador de migrations a partir do banco atual?
+}
 > usaremos created_at e updated_at?
 > usaremos isActive para registros que foram deletados?
 > adicionar um hook no typeorm para criptografar a senha?
@@ -9,3 +12,25 @@
 > o campo cpfCnpj pode dar dor de cabeça futuramente para relatorio, exemplo, Select TODAS as companies que forem CPF ( como que vai saber oque é cpf doque é cnpj? vai ter que dar select.all e depois verificar quem tem X digitos? muito ruim )
 > o nome das moldes nao esta no plural como as o nome das tabelas
 > é necessario preencher a tabela de state e citiesm deve-se utilizar migrations?
+> qual o beneficio de colocar a 'configuração de objeto' nas models@column ? {
+    > nas migrations tem varchar(50) e nas models tem nada, qual o efeito disso?
+}
+> como guardar valores com ponto flutuante? string ou float? {
+    > exemplo disso é Product@netWeight, Product@grossWeight, 
+}
+> senti dificuldade de entendimento em 'product_category_product', troque esse nome !
+> os nomes das chaves estrangeiras devem ser iguais aos das tabelas {
+    ex: Product@categoryProductId NAO É IGUAL Á Table(product_category)
+}
+> product unit deve ter relacionamento com outra tabela ou pode escrever? (ex: caixa,unidade,cx,caix) {
+    > se deixar escrever vai fica ruim pra relatorio ( mostre todos os produtos que sao do tipo caixa )
+}
+DUVIDA PERIGOSA : Quão perigoso é fazer um banco sem as 'chaves estrangerias/constrains?' somente confiando no orm??? {
+    > https://pt.stackoverflow.com/questions/106084/qual-a-utilidade-de-usar-chaves-estrangeiras
+}
+> Address tem 2 "oneToOne", verificar depois se os 2 estão funcionando
+> pode produtos sem categoria? no smartPos tem a categoria "geral" da pra excluir ela?
+
+é necessario criar uma tabela fotos_produtos / fotos_categories
+porque no futuro nao vai da pra saber oque é foto de produto e todo de categoria
+

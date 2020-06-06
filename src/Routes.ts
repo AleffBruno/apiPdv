@@ -19,7 +19,7 @@ routes.post("/login", SessionController.login);
 routes.post("/user", UserController.create);
 
 routes.get('/user',[checkJwt], UserController.GetUsers)
-routes.get('/photo',PhotoController.Create)
+// routes.get('/photo',PhotoController.Create)
 
 export default routes;
 
