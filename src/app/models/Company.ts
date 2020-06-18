@@ -4,6 +4,7 @@ import { Pcategory } from "./Pcategory";
 import { Product } from "./Product";
 import { Address } from "./Address";
 import { Bill } from "./BIll";
+import { CashControl } from "./CashControl";
 
 @Entity('companies')
 export class Company {
@@ -41,5 +42,8 @@ export class Company {
     @OneToOne(type => Address, address => address.company)
     @JoinColumn()
     address: Address;
+
+    @OneToMany(type => CashControl, cashControl => cashControl.company)
+    cashControl: CashControl[];
     
 }

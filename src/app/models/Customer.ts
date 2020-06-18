@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn, OneToMany} from "typeorm";
+import {Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn} from "typeorm";
 import { Address } from "./Address";
 
 @Entity('customers')
@@ -12,7 +12,7 @@ export class Customer {
     clientType: string;
 
     @Column()
-    companyName: string;
+    customerName: string;
 
     @Column()
     fantasyName: string;
@@ -50,8 +50,10 @@ export class Customer {
     @Column()
     optingSimpleNational: boolean;
 
-    @OneToMany(type => Address, address => address.state)
-    addresses: Address[];
-
+    // @OneToMany(type => Address, address => address.)
+    // addresses: Address[];
+    @OneToOne(type => Address, address => address.customer)
+    @JoinColumn()
+    address: Address;
     
 }

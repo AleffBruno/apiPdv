@@ -2,6 +2,7 @@ import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany, ManyToMany
 import { Company } from "./Company";
 import { ProductPhoto } from "./ProductPhoto";
 import { Pcategory } from "./Pcategory";
+import { Unit } from "./Unit";
 
 @Entity('products')
 export class Product {
@@ -26,9 +27,6 @@ export class Product {
 
     @Column()
     barCode: string;
-
-    @Column()
-    unit: string;
 
     @Column("decimal", { precision: 5, scale: 2 })
     minStock: number;
@@ -68,6 +66,9 @@ export class Product {
     // pcategories: Pcategory[];
     @ManyToOne(type => Pcategory, pcategory => pcategory.products)
     pcategories: Pcategory[];
+
+    @ManyToOne(type => Unit, unit => unit.products)
+    unit: Unit;
 
     // modifiersId
 

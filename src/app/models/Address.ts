@@ -2,6 +2,7 @@ import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany, OneToOne} 
 import { State } from "./State";
 import { City } from "./City";
 import { Company } from "./Company";
+import { Customer } from "./Customer";
 
 @Entity('addresses')
 export class Address {
@@ -49,4 +50,7 @@ export class Address {
     // companies: Company[];
     @OneToOne(type => Company, company => company.address)
     company: Company;
+
+    @OneToOne(type => Customer, customer => customer.address)
+    customer: Customer;
 }

@@ -50,3 +50,10 @@ DUVIDA PERIGOSA : Quão perigoso é fazer um banco sem as 'chaves estrangerias/c
 Duvida Henrique - Se vamos trabalhar com as tabelas sendo criadas automaticas nao deveriamos criar as migrations automaticas tb?
     Acho que de outra forma podemos correr o risco de trablahar com bases diferentes.
 
+qual a necessidade de colocar companyId em TODAS as tabelas, para saber de qual registro pertence a cada pessoa {
+    ex: Product_Photos, é necessario colocar companyId aqui?
+    caso : vamos deletar TODOS os registros de uma pessoa que nao usa o sistema faz 5 anos, como vamos saber quais as "imagens" que essa company fez o upload se nem tem companyId na tabela?
+}
+
+como salvar as datas no banco? string ou date?
+

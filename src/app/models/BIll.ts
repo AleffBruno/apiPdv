@@ -2,6 +2,7 @@ import {Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne} from "type
 import { Address } from "./Address";
 import { Company } from "./Company";
 import { Payment } from "./Payment";
+import { Bcategory } from "./Bcategory";
 
 @Entity('bills')
 export class Bill {
@@ -23,12 +24,12 @@ export class Bill {
     firstPaymentDate: string;
 
     @Column()
-    isMonthFixed: boolean;
+    isMonthlyFixed: boolean;
 
     @Column()
     receiveNotification: boolean;
 
-    @Column()
+    @Column({nullable:true})
     notificationDate: string;
 
     @Column()
@@ -43,5 +44,8 @@ export class Bill {
 
     @OneToMany(type => Payment, payment => payment.bill)
     payments: Payment[];
+
+    @ManyToOne(type => Bcategory, bcategory => bcategory.bills)
+    category: Company;
 
 }
