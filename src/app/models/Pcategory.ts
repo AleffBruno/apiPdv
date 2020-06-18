@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany} from "typeorm";
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany, OneToMany} from "typeorm";
 import { Company } from "./Company";
 import { Product } from "./Product";
 
@@ -18,6 +18,9 @@ export class Pcategory {
     @ManyToOne(type => Company, company => company.productCategories)
     company: Company;
 
-    @ManyToMany(type => Product, product => product.pcategories)
+    // @ManyToMany(type => Product, product => product.pcategories)
+    // products: Product[];
+    @OneToMany(type => Product, product => product.pcategories)
     products: Product[];
+
 }

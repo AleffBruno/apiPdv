@@ -63,10 +63,11 @@ export class Product {
     @OneToMany(type => ProductPhoto, productPhoto => productPhoto.product)
     productPhotos: ProductPhoto[];
     
-    @ManyToMany(type => Pcategory, pcategory => pcategory.products)
-    @JoinTable()
+    // @ManyToMany(type => Pcategory, pcategory => pcategory.products)
+    // @JoinTable()
+    // pcategories: Pcategory[];
+    @ManyToOne(type => Pcategory, pcategory => pcategory.products)
     pcategories: Pcategory[];
-    
 
     // modifiersId
 

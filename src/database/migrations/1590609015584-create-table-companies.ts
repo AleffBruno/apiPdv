@@ -11,7 +11,8 @@ export class createTableCompanies1590609015584 implements MigrationInterface {
                 cpfCnpj varchar(30),
                 phone varchar(30),
                 addressId integer,
-                masterPassword varchar(255)
+                masterPassword varchar(255),
+                type char(2)
             )
         `);
     }

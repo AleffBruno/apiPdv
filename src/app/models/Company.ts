@@ -3,6 +3,7 @@ import { User } from "./User";
 import { Pcategory } from "./Pcategory";
 import { Product } from "./Product";
 import { Address } from "./Address";
+import { Bill } from "./BIll";
 
 @Entity('companies')
 export class Company {
@@ -30,6 +31,9 @@ export class Company {
 
     @OneToMany(type => Product, product => product.company)
     products: Product[];
+
+    @OneToMany(type => Bill, bill => bill.company)
+    bills: Bill[];
 
     @OneToMany(type => Pcategory, pcategory => pcategory.company)
     productCategories: Pcategory[];

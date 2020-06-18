@@ -74,7 +74,7 @@ class JunkController{
         const addressWithCompany = await addressRepository.findOne({
             relations: ["company"],
             where: {
-              id: address.id
+              id: 2
             }
         });
 
@@ -139,7 +139,7 @@ class JunkController{
         await pcategoryRepository.save(pcategory);
 
 
-        return res.json(productWithPhotos);
+        return res.json(pcategory);
     };
 }
 
