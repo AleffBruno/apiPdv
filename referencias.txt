@@ -17,6 +17,6 @@ migrations {
     rodar migraiton: $ ts-node node_modules/typeorm/cli.js migration:run
 
     - Criando migrations com Orm
-    ts-node node_modules/typeorm/cli.js migration:generate -n allMigrationsgit 
+    $ ts-node node_modules/typeorm/cli.js migration:generate -n allMigrationsgit 
 }
 
