@@ -47,3 +47,6 @@ DUVIDA PERIGOSA : Quão perigoso é fazer um banco sem as 'chaves estrangerias/c
 
 é necessario criar uma tabela fotos_produtos / fotos_categories porque no futuro nao vai da pra saber oque é foto de produto e foto de categoria 
 
+Duvida Henrique - Se vamos trabalhar com as tabelas sendo criadas automaticas nao deveriamos criar as migrations automaticas tb?
+    Acho que de outra forma podemos correr o risco de trablahar com bases diferentes.
+
