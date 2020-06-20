@@ -9,10 +9,10 @@ export class CashControl {
     id: number;
 
     @Column()
-    open: string;
+    openDate: string;
 
     @Column()
-    close: string;
+    closeDate: string;
 
     @Column()
     valueOpen: string;
@@ -20,7 +20,7 @@ export class CashControl {
     @Column()
     valueClose: string;
 
-    @ManyToOne(type => Company, company => company.bills)
+    @ManyToOne(type => Company, company => company.cashControl)
     company: Company;
 
 }

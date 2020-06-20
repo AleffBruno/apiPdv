@@ -1,7 +1,8 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany} from "typeorm";
 import { Length, IsNotEmpty } from "class-validator";
 import * as bcrypt from "bcryptjs";
 import { Company } from "./Company";
+import { Sale } from "./Sale";
 @Entity('users')
 export class User {
 
@@ -33,6 +34,9 @@ export class User {
         cascade: ['insert']
     } */)
     company: Company;
+
+    @OneToMany(type => Sale, sale => sale.user)
+    sales: Sale[];
 
     hashPassword(password : string) {
         // return this.password = bcrypt.hashSync(password, 8);

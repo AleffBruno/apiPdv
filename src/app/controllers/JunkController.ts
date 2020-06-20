@@ -51,6 +51,7 @@ class JunkController{
     //associa state/city com address
     address.city = city;
     address.state = state;
+    address.belongsTo = "company";
     await addressRepository.save(address);
 
     //cria company
@@ -175,6 +176,7 @@ class JunkController{
     address2.complement = "customerComplemento1";
     address2.city = city;
     address2.state = state;
+    address2.belongsTo = "customer";
     await addressRepository.save(address2);
 
     //associa o address personalizado com a company criada

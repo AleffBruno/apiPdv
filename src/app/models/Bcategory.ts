@@ -15,10 +15,10 @@ export class Bcategory {
     @Column()
     type: string;
 
-    @OneToMany(type => Bill, bill => bill.category)
+    @OneToMany(type => Bill, bill => bill.bcategory)
     bills: Bill[];
 
-    @ManyToOne(type => Company, company => company.productCategories)
+    @ManyToOne(type => Company, company => company.bcategories)
     company: Company;
 
     @OneToMany(type => Bsubcategory, bsubcategory => bsubcategory.bcategory)

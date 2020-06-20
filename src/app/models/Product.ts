@@ -3,6 +3,8 @@ import { Company } from "./Company";
 import { ProductPhoto } from "./ProductPhoto";
 import { Pcategory } from "./Pcategory";
 import { Unit } from "./Unit";
+import { ProductVariation } from "./ProductVariation";
+import { Modifier } from "./Modifier";
 
 @Entity('products')
 export class Product {
@@ -69,6 +71,13 @@ export class Product {
 
     @ManyToOne(type => Unit, unit => unit.products)
     unit: Unit;
+
+    @OneToMany(type => ProductVariation, productVariation => productVariation.product)
+    productVariations: ProductVariation[];
+
+    @ManyToMany(type => Modifier, modifier => modifier.products)
+    @JoinTable()
+    modifiers: Modifier[];
 
     // modifiersId
 

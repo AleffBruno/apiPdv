@@ -1,5 +1,6 @@
 import {Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn} from "typeorm";
 import { Address } from "./Address";
+import { Sale } from "./Sale";
 
 @Entity('customers')
 export class Customer {
@@ -56,4 +57,6 @@ export class Customer {
     @JoinColumn()
     address: Address;
     
+    @OneToMany(type => Sale, sale => sale.customer)
+    sales: Sale[];
 }

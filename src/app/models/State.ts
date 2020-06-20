@@ -1,5 +1,6 @@
 import {Entity, Column, PrimaryGeneratedColumn, OneToMany} from "typeorm";
 import { Address } from "./Address";
+import { City } from "./City";
 
 @Entity('states')
 export class State {
@@ -11,6 +12,9 @@ export class State {
         length: 255
     })
     name: string;
+
+    @OneToMany(type => City, city => city.state)
+    cities: City[];
 
     @OneToMany(type => Address, address => address.state)
     addresses: Address[];

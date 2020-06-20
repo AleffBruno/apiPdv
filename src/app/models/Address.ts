@@ -3,12 +3,17 @@ import { State } from "./State";
 import { City } from "./City";
 import { Company } from "./Company";
 import { Customer } from "./Customer";
+import { Provider } from "./Provider";
 
 @Entity('addresses')
 export class Address {
 
     @PrimaryGeneratedColumn()
     id: number;
+
+    // ENUM ["company","user"], pra saber oque é endereço de cliente e empresa
+    @Column()
+    belongsTo: string;
 
     @Column({
         length: 100,
@@ -53,4 +58,7 @@ export class Address {
 
     @OneToOne(type => Customer, customer => customer.address)
     customer: Customer;
+
+    @OneToOne(type => Provider, provider => provider.address)
+    provider: Provider;
 }

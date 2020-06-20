@@ -1,5 +1,4 @@
 import {Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne} from "typeorm";
-import { Address } from "./Address";
 import { Company } from "./Company";
 import { Payment } from "./Payment";
 import { Bcategory } from "./Bcategory";
@@ -46,6 +45,6 @@ export class Bill {
     payments: Payment[];
 
     @ManyToOne(type => Bcategory, bcategory => bcategory.bills)
-    category: Company;
+    bcategory: Company;
 
 }
