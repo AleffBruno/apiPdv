@@ -93,3 +93,5 @@ qual a necessidade de colocar companyId em TODAS as tabelas, para saber de qual 
     }
 }
 
+> e correto um serviço chamar outro serviço ?
+

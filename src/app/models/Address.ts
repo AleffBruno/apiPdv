@@ -11,7 +11,7 @@ export class Address {
     @PrimaryGeneratedColumn()
     id: number;
 
-    // ENUM ["company","user"], pra saber oque é endereço de cliente e empresa
+    // ENUM ["company","user","customer"], pra saber oque é endereço de cliente e empresa
     @Column()
     belongsTo: string;
 
