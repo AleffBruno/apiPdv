@@ -4,11 +4,11 @@ import { Request, Response } from "express";
 import { create } from '../services/CompanyService';
 
 class CompanyController {
-    public create = async (req:Request, res:Response) => {
+    public create = async (request:Request, response:Response) => {
 
-        const company = await create(req);
+        const company = await create(request);
         
-        return res.json(company);
+        return response.json(company);
 
     };
 }

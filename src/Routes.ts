@@ -9,13 +9,13 @@ import CompanyController from "./app/controllers/CompanyController";
 
 const routes = Router();
 
-// routes.use((req:any,res:any,next:any) => {
+// routes.use((request:any,response:any,next:any) => {
 //     console.log("all");
 //     next();
 // })
 
-routes.get('/check',(req, res) => {
-    res.json({ok:"ok"})
+routes.get('/check',(request, response) => {
+    response.json({ok:"ok"})
 })
   
 routes.get("/junk",JunkController.junk);

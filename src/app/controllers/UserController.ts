@@ -8,13 +8,13 @@ import authConfig from '../../config/auth';
 
 class UserController {
 
-    public create = async (req:Request, res:Response) => {
+    public create = async (request:Request, response:Response) => {
         try {
             // const userRepository = getRepository(User); //estou repetindo isso, ta ruim
 
             //transformação de dados fica aqui, exemplo: transformar o email do cara em minuscolo
 
-            const { name, email, password, commission, phone } = req.body;
+            const { name, email, password, commission, phone } = request.body;
 
             //COLOCAR VALIDAÇÕES DO 'class-validator' aqui depois
 
@@ -28,17 +28,19 @@ class UserController {
                 { expiresIn: authConfig.expiresIn }
             );
 
-            return res.json({user,token}) 
+            delete user.password;
+
+            return response.json({user,token}) 
         } catch (err) {
-            return res.status(400).json({ error: err.message })
+            return response.status(400).json({ error: err.message })
         }
     };
 
-    public GetUsers = async (req:Request, res:Response) => {
+    public GetUsers = async (request:Request, response:Response) => {
         // const userRepository = getRepository(User); //estou repetindo isso, ta ruim
         const userService = new UserService()
         const users = await userService.getUsers();
-        res.json({users}) 
+        response.json({users}) 
     };
 }
 

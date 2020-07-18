@@ -4,9 +4,9 @@ import { Request, Response } from "express";
 
 
 class PhotoController{
-    // public Create = async (req:Request, res:Response) => {
+    // public Create = async (request:Request, response:Response) => {
     //     const photo = await savePhoto();
-    //     res.json({photo : photo}) 
+    //     response.json({photo : photo}) 
     // };
 }
 

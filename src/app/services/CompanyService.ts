@@ -3,9 +3,9 @@ import { getConnection } from 'typeorm';
 import { Company } from '../models/Company';
 import { Request } from "express";
 
-export const create = async (req : Request) => {
+export const create = async (request : Request) => {
 
-    const { name, email, cpfCnpj, phone, masterPassword } = req.body;
+    const { name, email, cpfCnpj, phone, masterPassword } = request.body;
 
     let companyRepository = await getConnection().getRepository(Company);
 

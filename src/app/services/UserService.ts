@@ -5,7 +5,8 @@
 //     return "getUsers"
 // };
 import { User } from '../models/User';
-import { getConnection, getRepository, Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
+import * as bcrypt from "bcryptjs";
 
 //criei a interfaceDTO aqui foda-se ???
 interface RequestDTO {
@@ -20,7 +21,7 @@ class UserService {
     private userRepository : Repository<User>;
 
     constructor() {
-        this.userRepository = getConnection().getRepository(User);
+        this.userRepository = getRepository(User);
     }
 
     public getUsers() : Promise<User[]> {
@@ -30,15 +31,17 @@ class UserService {
 
     public async create({ name, email, password, commission, phone } : RequestDTO) : Promise<User> {
         // const userRepository = getRepository(User);
-        const userExists = await this.userRepository.find({where:{email: email}});
+        const userExists = await this.userRepository.findOne({where:{email: email}});
 
-        if(userExists.length > 0) {
+        if(userExists) {
             throw Error('email aready exists');
         }
 
+        const hashedPassword = await bcrypt.hash(password, 8);
+
         const user = new User();
         user.email = email;
-        user.password = user.hashPassword( password );
+        user.password = hashedPassword;
         user.isAdmin = false;
         user.name = name;
         user.phone = phone;

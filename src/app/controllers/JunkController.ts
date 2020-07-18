@@ -14,7 +14,7 @@ import { Bill } from "../models/BIll";
 import { Unit } from "../models/Unit";
 
 class JunkController{
-  public junk = async (req:Request, res:Response) => {
+  public junk = async (request:Request, response:Response) => {
 
     //cria usuario
     let userRepository = await getConnection().getRepository(User);
@@ -207,7 +207,7 @@ class JunkController{
 
 
 
-    return res.json(bill);
+    return response.json(bill);
   };
 }
 
