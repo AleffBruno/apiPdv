@@ -1,0 +1,22 @@
+configurando debug {
+    > config do launch.json {
+        "configurations": [
+            {
+                "type": "node",
+                "request": "attach",
+                "protocol": "inspector",
+                "restart": true,
+                "name": "Debug",
+                "skipFiles": [
+                    "<node_internals>/**"
+                ],
+                "outFiles": [
+                    "${workspaceFolder}/**/*.js"
+                ]
+            }
+        ]
+    }
+    > é necessario no script "npm run dev" colocar a opção --inspect SE ESTIVER USANDO TS-NODE-DEV {
+        ex: "dev": "ts-node-dev --inspect --ignore node_modules src/server.ts"
+    }
+}

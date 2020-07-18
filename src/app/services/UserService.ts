@@ -19,9 +19,8 @@ interface RequestDTO {
 class UserService {
     private userRepository : Repository<User>;
 
-    //dependency inversion do 'userRepository'
-    constructor(userRepository: Repository<User>) {
-        this.userRepository = userRepository;
+    constructor() {
+        this.userRepository = getConnection().getRepository(User);
     }
 
     public getUsers() : Promise<User[]> {
@@ -32,8 +31,6 @@ class UserService {
     public async create({ name, email, password, commission, phone } : RequestDTO) : Promise<User> {
         // const userRepository = getRepository(User);
         const userExists = await this.userRepository.find({where:{email: email}});
-
-        console.log(userExists.length)
 
         if(userExists.length > 0) {
             throw Error('email aready exists');

@@ -10,7 +10,7 @@ class UserController {
 
     public create = async (req:Request, res:Response) => {
         try {
-            const userRepository = getRepository(User); //estou repetindo isso, ta ruim
+            // const userRepository = getRepository(User); //estou repetindo isso, ta ruim
 
             //transformação de dados fica aqui, exemplo: transformar o email do cara em minuscolo
 
@@ -18,7 +18,7 @@ class UserController {
 
             //COLOCAR VALIDAÇÕES DO 'class-validator' aqui depois
 
-            const userService = new UserService(userRepository);
+            const userService = new UserService();
 
             const user = await userService.create({name, email, password, commission, phone});
 
@@ -35,8 +35,8 @@ class UserController {
     };
 
     public GetUsers = async (req:Request, res:Response) => {
-        const userRepository = getRepository(User); //estou repetindo isso, ta ruim
-        const userService = new UserService(userRepository)
+        // const userRepository = getRepository(User); //estou repetindo isso, ta ruim
+        const userService = new UserService()
         const users = await userService.getUsers();
         res.json({users}) 
     };

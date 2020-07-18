@@ -95,3 +95,7 @@ qual a necessidade de colocar companyId em TODAS as tabelas, para saber de qual 
 
 > e correto um serviço chamar outro serviço ?
 
+> estudar quando deletar um registro, se vai utilizar ON CASCADE, SET NULL, RESTRICT (tem mais?)
+
+> nao esquecer do softDelete
+

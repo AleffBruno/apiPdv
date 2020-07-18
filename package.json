@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "devTsc": "tsc-watch --onSuccess \"node ./dist/server.js\"",
-    "dev": "nodemon --watch src/ --exec \"ts-node src/server.ts\" -e ts"
+    "devNodemon": "nodemon --watch src/ --exec \"ts-node src/server.ts\" -e ts",
+    "dev": "ts-node-dev --inspect --no-notify --ignore node_modules src/server.ts"
   },
   "keywords": [],
   "author": "",
@@ -34,5 +35,8 @@
     "tsc-watch": "^4.2.6",
     "typeorm": "^0.2.25",
     "typescript": "^3.9.2"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^1.0.0-pre.52"
   }
 }

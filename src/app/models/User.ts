@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn} from "typeorm";
 import { Length, IsNotEmpty } from "class-validator";
 import * as bcrypt from "bcryptjs";
 import { Company } from "./Company";
@@ -13,7 +13,7 @@ export class User {
     @Column()
     name: string;
 
-    @Column()
+    @Column({unique: true})
     email: string;
 
     // @Length(4, 20)
@@ -29,6 +29,12 @@ export class User {
 
     @Column()
     phone: string;
+
+    @CreateDateColumn()
+    created_at: Date;
+
+    @UpdateDateColumn()
+    updated_at: Date;
 
     @ManyToOne(type => Company, company => company.users,/* {
         cascade: ['insert']
