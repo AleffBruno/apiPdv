@@ -14,12 +14,17 @@ const routes = Router();
 //     next();
 // })
 
+routes.get('/check',(req, res) => {
+    res.json({ok:"ok"})
+})
+  
 routes.get("/junk",JunkController.junk);
 
 routes.post("/login", SessionController.login);
 routes.post("/user", UserController.create);
 
-routes.get('/user',[checkJwt], UserController.GetUsers)
+// routes.get('/user',[checkJwt], UserController.GetUsers)
+routes.get('/user', UserController.GetUsers)
 // routes.get('/photo',PhotoController.Create)
 
 routes.get('/company', CompanyController.create)

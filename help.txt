@@ -5,7 +5,7 @@ config = onde ficam configs com settar configurações de envio de email, servi�
 
 database = onde ficam as migrations
 
-App.ts = "CORE" da api, onde sao inicializado configurações de conecao com o banco, middewares globais
+App.ts = "CORE" da api, onde sao inicializado configurações de conexao com o banco, middewares globais
 
 Routes.ts = onde ficam TODAS as rotas ( parecido com o web.php do laravel)
 

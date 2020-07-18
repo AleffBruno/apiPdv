@@ -4,7 +4,7 @@ export class createTableProductVariation1590862898811 implements MigrationInterf
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            CREATE TABLE product_variation (
+            CREATE TABLE product_variations (
                 id integer UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 variationName varchar(255),
                 priceVariation float,

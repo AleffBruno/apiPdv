@@ -1,7 +1,7 @@
 import {Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne} from "typeorm";
 import { Product } from "./Product";
 
-@Entity('cities')
+@Entity('product_variations')
 export class ProductVariation {
 
     @PrimaryGeneratedColumn()
@@ -21,6 +21,4 @@ export class ProductVariation {
 
     @ManyToOne(type => Product, product => product.productVariations)
     product: Product;
-
-
 }

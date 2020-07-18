@@ -1,45 +1,43 @@
-import { getUsers } from '../services/UserService';
+// import { getUsers } from '../services/UserService';
+import UserService from '../services/UserService';
 import { Request, Response } from "express";
 import { User } from '../models/User';
 import { getRepository } from "typeorm";
 import * as jwt from "jsonwebtoken";
 import authConfig from '../../config/auth';
 
-class UserController{
+class UserController {
+
     public create = async (req:Request, res:Response) => {
+        try {
+            const userRepository = getRepository(User); //estou repetindo isso, ta ruim
 
-        //COLOCAR VALIDAÇÕES DO 'class-validator' aqui depois
+            //transformação de dados fica aqui, exemplo: transformar o email do cara em minuscolo
 
-        const userRepository = getRepository(User);
-        // const userExists = await userRepository.find({where:{email:req.body.email}});
+            const { name, email, password, commission, phone } = req.body;
 
-        // console.log(userExists.length)
+            //COLOCAR VALIDAÇÕES DO 'class-validator' aqui depois
 
-        // if(userExists.length == 0) {
-        //     return res.status(400).json({error:'email aready exists'})
-        // }
+            const userService = new UserService(userRepository);
 
-        const user = new User();
-        user.email = req.body.email;
-        user.password = user.hashPassword( req.body.password );
-        user.isAdmin = false;
-        user.name = "99999999";
-        user.phone = "99999999";
-        user.commission = "0";
+            const user = await userService.create({name, email, password, commission, phone});
 
-        await userRepository.save(user);
+            const token = jwt.sign(
+                { userId: user.id },
+                <string>authConfig.secret,
+                { expiresIn: authConfig.expiresIn }
+            );
 
-        const token = jwt.sign(
-            { userId: user.id },
-            <string>authConfig.secret,
-            { expiresIn: authConfig.expiresIn }
-        );
-
-        return res.json({user,token}) 
+            return res.json({user,token}) 
+        } catch (err) {
+            return res.status(400).json({ error: err.message })
+        }
     };
 
-    public GetUsers = (req:Request, res:Response) => {
-        const users = getUsers();
+    public GetUsers = async (req:Request, res:Response) => {
+        const userRepository = getRepository(User); //estou repetindo isso, ta ruim
+        const userService = new UserService(userRepository)
+        const users = await userService.getUsers();
         res.json({users}) 
     };
 }
