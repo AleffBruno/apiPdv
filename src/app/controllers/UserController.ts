@@ -1,8 +1,6 @@
 // import { getUsers } from '../services/UserService';
 import UserService from '../services/UserService';
 import { Request, Response } from "express";
-import { User } from '../models/User';
-import { getRepository } from "typeorm";
 import * as jwt from "jsonwebtoken";
 import authConfig from '../../config/auth';
 
@@ -38,9 +36,16 @@ class UserController {
 
     public GetUsers = async (request:Request, response:Response) => {
         // const userRepository = getRepository(User); //estou repetindo isso, ta ruim
+        
         const userService = new UserService()
         const users = await userService.getUsers();
         response.json({users}) 
+    };
+
+    public uploadAvatarImage = async (request:Request, response:Response) => {
+        // console.log(request.file);
+        
+        response.json({ok:"OK"})
     };
 }
 
