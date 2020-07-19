@@ -7,31 +7,29 @@ import authConfig from '../../config/auth';
 class UserController {
 
     public create = async (request:Request, response:Response) => {
-        try {
-            // const userRepository = getRepository(User); //estou repetindo isso, ta ruim
+        
+        // const userRepository = getRepository(User); //estou repetindo isso, ta ruim
 
-            //transformação de dados fica aqui, exemplo: transformar o email do cara em minuscolo
+        //transformação de dados fica aqui, exemplo: transformar o email do cara em minuscolo
 
-            const { name, email, password, commission, phone } = request.body;
+        const { name, email, password, commission, phone } = request.body;
 
-            //COLOCAR VALIDAÇÕES DO 'class-validator' aqui depois
+        //COLOCAR VALIDAÇÕES DO 'class-validator' aqui depois
 
-            const userService = new UserService();
+        const userService = new UserService();
 
-            const user = await userService.create({name, email, password, commission, phone});
+        const user = await userService.create({name, email, password, commission, phone});
 
-            const token = jwt.sign(
-                { userId: user.id },
-                <string>authConfig.secret,
-                { expiresIn: authConfig.expiresIn }
-            );
+        const token = jwt.sign(
+            { userId: user.id },
+            <string>authConfig.secret,
+            { expiresIn: authConfig.expiresIn }
+        );
 
-            delete user.password;
+        delete user.password;
 
-            return response.json({user,token});
-        } catch (err) {
-            return response.status(400).json({ error: err.message });
-        }
+        return response.json({user,token});
+        
     };
 
     public GetUsers = async (request:Request, response:Response) => {
@@ -44,19 +42,17 @@ class UserController {
 
     public uploadAvatarImage = async (request:Request, response:Response) => {
         // console.log(request.file);
-        try {
-            const userService = new UserService();
-            const userId = response.locals.jwtPayload.userId;
+        
+        const userService = new UserService();
+        const userId = response.locals.jwtPayload.userId;
 
-            const user = await userService.updateUserAvatar({user_id: userId, avatarFilename: request.file.filename });
+        const user = await userService.updateUserAvatar({user_id: userId, avatarFilename: request.file.filename });
 
-            delete user.password;
+        delete user.password;
 
-            return response.json(user);
+        return response.json(user);
 
-        } catch (err) {
-            return response.status(400).json({ error: err.message });
-        }
+        
         
     };
 }

@@ -10,20 +10,15 @@ import { User } from "../models/User";
 class SessionController{
     public login = async (request:Request, response:Response) => {
 
-        try {
-            const { email, password } = request.body;
+        const { email, password } = request.body;
 
-            const sessionService = new SessionService();
-    
-            const { user, token } = await sessionService.login({email, password});
-    
-            delete user.password;
+        const sessionService = new SessionService();
 
-            return response.json({ user, token });
-        } catch (err) {
-            return response.status(400).json({ error: err.message })
-        }
-        
+        const { user, token } = await sessionService.login({email, password});
+
+        delete user.password;
+
+        return response.json({ user, token });
 
         //CODIGO ANTIGO COMENTADO PARA REFERENCIAS
         // const { email, password } = request.body;

@@ -20,3 +20,9 @@ configurando debug {
         ex: "dev": "ts-node-dev --inspect --ignore node_modules src/server.ts"
     }
 }
+
+erro handler global {
+    > foi criado um middleware em App.ts tratando todos os erros e colocado DEPOIS das rotas
+    > $ npm i --save express-async-errors
+    > import 'express-async-errors' em App.js
+}

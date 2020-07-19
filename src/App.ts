@@ -1,5 +1,6 @@
 import "reflect-metadata";
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
+import 'express-async-errors';
 import cors from "cors";
 import bodyParser from 'body-parser';
 import compression from "compression";
@@ -10,6 +11,7 @@ import {createConnection} from "typeorm";
 import uploadConfig from './config/upload';
 
 import dotenv from "dotenv";
+import AppError from "./errors/AppError";
 dotenv.config(); 
 
 class App {
@@ -20,6 +22,7 @@ class App {
         this.app = express();
         this.applyMiddlewares();
         this.routes();
+        this.middlewareErrorHandlingGlobal();
     }
 
     private applyMiddlewares() {
@@ -29,6 +32,24 @@ class App {
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(bodyParser.json());
         this.app.use(compression());
+    }
+
+    private middlewareErrorHandlingGlobal() {
+        this.app.use((err:Error , request: Request, response: Response, next: NextFunction) => {
+            if(err instanceof AppError) {
+                return response.status(err.statusCode).json({
+                    status: 'error',
+                    message: err.message,
+                })
+            }
+
+            console.log(err);
+
+            return response.status(500).json({
+                status: 'error',
+                message: 'My internal server error',
+            })
+        })
     }
 
     private routes() {

@@ -10,6 +10,7 @@ import * as bcrypt from "bcryptjs";
 import uploadConfig from '../../config/upload';
 import path from 'path';
 import fs from 'fs';
+import AppError from '../../errors/AppError';
 
 interface createRequestDTO {
     name: string,
@@ -41,7 +42,7 @@ class UserService {
         const userExists = await this.userRepository.findOne({where:{email: email}});
 
         if(userExists) {
-            throw Error('email aready exists');
+            throw new AppError('email aready exists');
         }
 
         const hashedPassword = await bcrypt.hash(password, 8);
@@ -64,7 +65,7 @@ class UserService {
         const user = await this.userRepository.findOne(user_id);
 
         if(!user) {
-            throw new Error('Only authenticated users can change avatar');
+            throw new AppError('Only authenticated users can change avatar', 401);
         }
 
         if(user.avatar) {

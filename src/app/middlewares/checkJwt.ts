@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import * as jwt from "jsonwebtoken";
 import authConfig from '../../config/auth';
 // import config from "../config/config";
+import AppError from '../../errors/AppError';
 
 export const checkJwt = (request: Request, response: Response, next: NextFunction) => {
   //Get the jwt token from the head
@@ -11,7 +12,7 @@ export const checkJwt = (request: Request, response: Response, next: NextFunctio
   if (!bearerToken) {
     // return response.status(401).json({error:'token not provided'})
     // nao estou dando 'response.status(401).json()' por causa do padrão "Exception Handler"
-    throw new Error('token not provided');
+    throw new AppError('token not provided', 401);
   }
 
   const [,token] = bearerToken.split(' '); // splita o "Bearer" do token, e pega somente o token
@@ -29,7 +30,7 @@ export const checkJwt = (request: Request, response: Response, next: NextFunctio
     // response.status(401).json({msg:"401 - nao autorizado"});
     // return response.status(401).json({error:'token invalid'})
     // nao estou dando 'response.status(401).json()' por causa do padrão "Exception Handler"
-    throw new Error('token invalid');
+    throw new AppError('token invalid', 401);
   }
 
 
