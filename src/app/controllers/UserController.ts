@@ -28,24 +28,36 @@ class UserController {
 
             delete user.password;
 
-            return response.json({user,token}) 
+            return response.json({user,token});
         } catch (err) {
-            return response.status(400).json({ error: err.message })
+            return response.status(400).json({ error: err.message });
         }
     };
 
     public GetUsers = async (request:Request, response:Response) => {
         // const userRepository = getRepository(User); //estou repetindo isso, ta ruim
         
-        const userService = new UserService()
+        const userService = new UserService();
         const users = await userService.getUsers();
-        response.json({users}) 
+        response.json({users}) ;
     };
 
     public uploadAvatarImage = async (request:Request, response:Response) => {
         // console.log(request.file);
+        try {
+            const userService = new UserService();
+            const userId = response.locals.jwtPayload.userId;
+
+            const user = await userService.updateUserAvatar({user_id: userId, avatarFilename: request.file.filename });
+
+            delete user.password;
+
+            return response.json(user);
+
+        } catch (err) {
+            return response.status(400).json({ error: err.message });
+        }
         
-        response.json({ok:"OK"})
     };
 }
 

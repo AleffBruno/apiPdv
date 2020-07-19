@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import express from "express";
 import cors from "cors";
 import bodyParser from 'body-parser';
@@ -6,7 +7,7 @@ import compression from "compression";
 import Routes from './routes/index';
 import helmet from 'helmet';
 import {createConnection} from "typeorm";
-import "reflect-metadata";
+import uploadConfig from './config/upload';
 
 import dotenv from "dotenv";
 dotenv.config(); 
@@ -15,14 +16,15 @@ class App {
     public app : express.Application;
 
     constructor() {
+        this.startConnectionTypeOrm();
         this.app = express();
         this.applyMiddlewares();
         this.routes();
-        this.startConnectionTypeOrm();
     }
 
     private applyMiddlewares() {
-        this.app.use(helmet())
+        this.app.use('/files', express.static(uploadConfig.directory));
+        this.app.use(helmet());
         this.app.use(cors({ credentials: true, origin: true }));
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(bodyParser.json());
