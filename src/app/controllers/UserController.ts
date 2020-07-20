@@ -6,7 +6,7 @@ import authConfig from '../../config/auth';
 
 class UserController {
 
-    public create = async (request:Request, response:Response) => {
+    public create = async (request:Request, response:Response) : Promise<Response> => {
         
         // const userRepository = getRepository(User); //estou repetindo isso, ta ruim
 
@@ -23,7 +23,7 @@ class UserController {
         const token = jwt.sign(
             { userId: user.id },
             <string>authConfig.secret,
-            { expiresIn: authConfig.expiresIn }
+            { subject: user.id.toString(), expiresIn: authConfig.expiresIn }
         );
 
         delete user.password;
@@ -32,15 +32,15 @@ class UserController {
         
     };
 
-    public GetUsers = async (request:Request, response:Response) => {
+    public GetUsers = async (request:Request, response:Response) : Promise<Response> => {
         // const userRepository = getRepository(User); //estou repetindo isso, ta ruim
         
         const userService = new UserService();
         const users = await userService.getUsers();
-        response.json({users}) ;
+        return response.json({users}) ;
     };
 
-    public uploadAvatarImage = async (request:Request, response:Response) => {
+    public uploadAvatarImage = async (request:Request, response:Response) : Promise<Response> => {
         // console.log(request.file);
         
         const userService = new UserService();

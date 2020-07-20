@@ -8,7 +8,7 @@ import { User } from "../models/User";
 
 
 class SessionController{
-    public login = async (request:Request, response:Response) => {
+    public login = async (request:Request, response:Response) : Promise<Response> => {
 
         const { email, password } = request.body;
 
