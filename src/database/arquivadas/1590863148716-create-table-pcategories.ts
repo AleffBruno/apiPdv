@@ -4,7 +4,7 @@ export class createTableProductCategory1590863148716 implements MigrationInterfa
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            CREATE TABLE product_category (
+            CREATE TABLE pcategories (
                 id integer UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 name varchar(255),
                 photoId integer,

@@ -1,11 +1,101 @@
-> usaremos created_at e updated_at?
-> usaremos isActive para registros que foram deletados?
+> DUVIDA FODA {
+    deve-se utilizar o ' "synchronize": true ' do typeorm, deixar ele gerar as tabelas, depois usar um gerador de migrations a partir do banco atual?
+}
+> usaremos created_at e updated_at? {
+    - vamos usar
+}
+> usaremos isActive para registros que foram deletados? {
+    - vamos usar ( EM ANALISE )
+}
 > adicionar um hook no typeorm para criptografar a senha?
-> devese criar funções dentro da model de User ? possivelmente se deve criar no providers/services
-> comissao esta como string, deixa string? e deve separar o ponto flutuante por "." ou ","
-> usar mascara para campos como telefone, cpfCnpj, cep e etc... ?
+> devese criar funções dentro da model de User ? possivelmente se deve criar no providers/services {
+    - colocar nos services
+}
+> comissao esta como string, deixa string? e deve separar o ponto flutuante por "." ou "," {
+    - vai ser tudo string, nao existe mais double/float
+}
+> usar mascara para campos como telefone, cpfCnpj, cep e etc... ? {
+    - na interface usar a mascara
+    - no banco usar sem a mascara
+}
 > se deve ter um campo "VIRTUAL" password apenas para validações ? e outro password_hash ?
 > verificar se o 'class-validator' tem confirm_password
-> o campo cpfCnpj pode dar dor de cabeça futuramente para relatorio, exemplo, Select TODAS as companies que forem CPF ( como que vai saber oque é cpf doque é cnpj? vai ter que dar select.all e depois verificar quem tem X digitos? muito ruim )
-> o nome das moldes nao esta no plural como as o nome das tabelas
-> é necessario preencher a tabela de state e citiesm deve-se utilizar migrations?
+> o campo cpfCnpj pode dar dor de cabeça futuramente para relatorio, exemplo, Select TODAS as companies que forem CPF ( como que vai saber oque é cpf doque é cnpj? vai ter que dar select.all e depois verificar quem tem X digitos? muito ruim ) {
+    - adicionar uma nova coluna "personType" char, pessoa fisica ou juridica
+}
+> é necessario preencher a tabela de state e cities deve-se utilizar migrations? {
+    - sim
+}
+> qual o beneficio de colocar a 'configuração de objeto' nas models@column ? {
+    > nas migrations tem varchar(50) e nas models tem nada, qual o efeito disso?
+}
+> como guardar valores com ponto flutuante? string ou float? {
+    > exemplo disso é Product@netWeight, Product@grossWeight, 
+    - tudo é string
+}
+> product unit deve ter relacionamento com outra tabela ou pode escrever? (ex: caixa,unidade,cx,caix) {
+    > se deixar escrever vai fica ruim pra relatorio ( mostre todos os produtos que sao do tipo caixa )
+    - sim foi criada
+}
+DUVIDA PERIGOSA : Quão perigoso é fazer um banco sem as 'chaves estrangerias/constrains?' somente confiando no orm??? {
+    > https://pt.stackoverflow.com/questions/106084/qual-a-utilidade-de-usar-chaves-estrangeiras
+}
+> Address tem 2 "oneToOne", verificar depois se os 2 estão funcionando
+> pode produtos sem categoria? no smartPos tem a categoria "geral" da pra excluir ela? {
+    > deve-se criar a categoria geral e nao pode excluir
+}
+
+é necessario criar uma tabela fotos_produtos / fotos_categories porque no futuro nao vai da pra saber oque é foto de produto e foto de categoria 
+
+Duvida Henrique - Se vamos trabalhar com as tabelas sendo criadas automaticas nao deveriamos criar as migrations automaticas tb?
+    Acho que de outra forma podemos correr o risco de trablahar com bases diferentes.
+
+qual a necessidade de colocar companyId em TODAS as tabelas, para saber de qual registro pertence a cada pessoa {
+    ex: Product_Photos, é necessario colocar companyId aqui?
+    caso : vamos deletar TODOS os registros de uma pessoa que nao usa o sistema faz 5 anos, como vamos saber quais as "imagens" que essa company fez o upload se nem tem companyId na tabela?
+}
+
+> como salvar as datas no banco? string ou date?
+
+> datas tambem salvam horas ( ex : 01-01-2020-0T12:10:30 ), então tem necessidade de criar coluna somente com o horario ( @coluna@hour ) ??
+
+> algumas tabelas vão precisar de enums {
+    ex: coluna status na tabela vendas,
+    status = aberto,fechado,em andamento,processando........ 
+
+    deve-se criar uma tabela no banco so pra status? isso de fato é necessario?, porque pra quando for fazer consultas baseado em "status" vai ter "join" com isso deixando a consulta lenta ( quando o sistema crescer é claro)
+
+    sugestão, criar uma "model fantasma" com o valor dos status em constante
+    ex:
+    const status = [{
+        id:1
+        label: aberto
+    }, {
+        id:2,
+        label: fechado
+    }, {
+        id:3,
+        label: em endamento
+    }]
+
+    com isso quando for ter consultas nao será necessario join
+}
+
+[ARQUIVADO, DESISTI DE FAZER]
+> tirei a string do nome das tabelas nas models {
+    ex: 
+    antes : @Entity('paymenttypes')
+    agora: @Entity()
+    motivo: quero ver como o gerador de migrations automatico vai gerar esses nomes
+    cuidado: regras do ingles {
+        palavra terminada em y no singular, adiciona ies para deixar no plural
+        palavra terminada em s no singular, adiciona es para deixar no plural
+    }
+}
+
+> e correto um serviço chamar outro serviço ?
+
+> estudar quando deletar um registro, se vai utilizar ON CASCADE, SET NULL, RESTRICT (tem mais?)
+
+> nao esquecer do softDelete
+

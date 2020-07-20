@@ -1,46 +1,59 @@
-import { getUsers } from '../services/UserService';
+// import { getUsers } from '../services/UserService';
+import UserService from '../services/UserService';
 import { Request, Response } from "express";
-import { User } from '../models/User';
-import { getRepository } from "typeorm";
 import * as jwt from "jsonwebtoken";
 import authConfig from '../../config/auth';
 
-class UserController{
-    public create = async (req:Request, res:Response) => {
+class UserController {
+
+    public create = async (request:Request, response:Response) : Promise<Response> => {
+        
+        // const userRepository = getRepository(User); //estou repetindo isso, ta ruim
+
+        //transformação de dados fica aqui, exemplo: transformar o email do cara em minuscolo
+
+        const { name, email, password, commission, phone } = request.body;
 
         //COLOCAR VALIDAÇÕES DO 'class-validator' aqui depois
 
-        const userRepository = getRepository(User);
-        // const userExists = await userRepository.find({where:{email:req.body.email}});
+        const userService = new UserService();
 
-        // console.log(userExists.length)
-
-        // if(userExists.length == 0) {
-        //     return res.status(400).json({error:'email aready exists'})
-        // }
-
-        const user = new User();
-        user.email = req.body.email;
-        user.password = user.hashPassword( req.body.password );
-        user.isAdmin = false;
-        user.name = "99999999";
-        user.phone = "99999999";
-        user.commission = "0";
-
-        await userRepository.save(user);
+        const user = await userService.create({name, email, password, commission, phone});
 
         const token = jwt.sign(
             { userId: user.id },
             <string>authConfig.secret,
-            { expiresIn: authConfig.expiresIn }
+            { subject: user.id.toString(), expiresIn: authConfig.expiresIn }
         );
 
-        return res.json({user,token}) 
+        delete user.password;
+
+        return response.json({user,token});
+        
     };
 
-    public GetUsers = (req:Request, res:Response) => {
-        const users = getUsers();
-        res.json({users}) 
+    public GetUsers = async (request:Request, response:Response) : Promise<Response> => {
+        // const userRepository = getRepository(User); //estou repetindo isso, ta ruim
+        
+        const userService = new UserService();
+        const users = await userService.getUsers();
+        return response.json({users}) ;
+    };
+
+    public uploadAvatarImage = async (request:Request, response:Response) : Promise<Response> => {
+        // console.log(request.file);
+        
+        const userService = new UserService();
+        const userId = response.locals.jwtPayload.userId;
+
+        const user = await userService.updateUserAvatar({user_id: userId, avatarFilename: request.file.filename });
+
+        delete user.password;
+
+        return response.json(user);
+
+        
+        
     };
 }
 

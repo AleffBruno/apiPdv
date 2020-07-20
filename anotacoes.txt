@@ -1,0 +1,44 @@
+configurando debug {
+    > config do launch.json {
+        "configurations": [
+            {
+                "type": "node",
+                "request": "attach",
+                "protocol": "inspector",
+                "restart": true,
+                "name": "Debug",
+                "skipFiles": [
+                    "<node_internals>/**"
+                ],
+                "outFiles": [
+                    "${workspaceFolder}/**/*.js"
+                ]
+            }
+        ]
+    }
+    > é necessario no script "npm run dev" colocar a opção --inspect SE ESTIVER USANDO TS-NODE-DEV {
+        ex: "dev": "ts-node-dev --inspect --ignore node_modules src/server.ts"
+    }
+}
+
+erro handler global {
+    > foi criado um middleware em App.ts tratando todos os erros e colocado DEPOIS das rotas
+    > $ npm i --save express-async-errors
+    > import 'express-async-errors' em App.js
+}
+
+// focado em testes em typescript
+testes {
+    $ npm i jest -D
+    $ npm i -D @types/jest
+    $ yarn jest --init
+    > dê "y" para todas as opções
+    $ npm i -D ts-jest
+    > foi criado jest.config.js {
+        preset: 'ts-jest',
+        testMatch: [  
+            "**/*.spec.ts",
+        ]
+    }
+    > agora escreva arquivos de testes e depois use o comando $ npm run test
+}

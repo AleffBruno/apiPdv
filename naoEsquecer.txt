@@ -1,0 +1,8 @@
+termo de uso/politica privacidade
+
+refazer o script de AllMigrations porque foi mechido muita coisa nas models
+
+henrique fazer os cursos {
+    > https://www.youtube.com/watch?v=wDWdqlYxfcw&list=PLHlHvK2lnJndvvycjBqQAbgEDqXxKLoqn
+    > aviso, na parte que ele usa o Azure para hospedar as imagens, voce vai dar um jeito de se adaptar e "pular" essa parte
+}

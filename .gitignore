@@ -1,7 +1,8 @@
 node_modules
 dist
 .idea/
-.vscode/
 build/
-tmp/
 temp/
+
+tmp/*
+!tmp/.gitkeep

@@ -7,9 +7,8 @@ export class createTableProducts1590861567731 implements MigrationInterface {
             CREATE TABLE products (
                 id integer UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 name varchar(255),
-                photoProductId integer,
                 code varchar(50),
-                categoryProductId integer,
+                productCategoryId integer,
                 salePrice float,
                 costPrice float,
                 canEditValue bit,

@@ -15,5 +15,8 @@ Biblioteca class-validator : https://github.com/typestack/class-validator
 migrations {
     criar migration: $ node_modules/.bin/typeorm migration:create -n {NOME_DA_MIGRATION}
     rodar migraiton: $ ts-node node_modules/typeorm/cli.js migration:run
+
+    - Criando migrations com Orm
+    $ ts-node node_modules/typeorm/cli.js migration:generate -n allMigrationsgit 
 }
 

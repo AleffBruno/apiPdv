@@ -1,12 +1,15 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class createTableProductCategoryProduct1590862650861 implements MigrationInterface {
+export class createTableProductVariation1590862898811 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            CREATE TABLE product_category_product (
+            CREATE TABLE product_variations (
                 id integer UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                categoryId integer,
+                variationName varchar(255),
+                priceVariation float,
+                costVariation float,
+                amountVariation float,
                 productId integer
             )
         `);

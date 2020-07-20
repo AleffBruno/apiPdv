@@ -1,31 +1,55 @@
-import express from "express";
+import "reflect-metadata";
+import express, { Request, Response, NextFunction } from "express";
+import 'express-async-errors';
 import cors from "cors";
 import bodyParser from 'body-parser';
 import compression from "compression";
-import Routes from './Routes';
+// import Routes from './Routes';
+import Routes from './routes/index';
 import helmet from 'helmet';
 import {createConnection} from "typeorm";
-import "reflect-metadata";
+import uploadConfig from './config/upload';
 
 import dotenv from "dotenv";
+import AppError from "./errors/AppError";
 dotenv.config(); 
 
 class App {
     public app : express.Application;
 
     constructor() {
+        this.startConnectionTypeOrm();
         this.app = express();
         this.applyMiddlewares();
         this.routes();
-        this.startConnectionTypeOrm();
+        this.middlewareErrorHandlingGlobal();
     }
 
     private applyMiddlewares() {
-        this.app.use(helmet())
+        this.app.use('/files', express.static(uploadConfig.directory));
+        this.app.use(helmet());
         this.app.use(cors({ credentials: true, origin: true }));
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(bodyParser.json());
         this.app.use(compression());
+    }
+
+    private middlewareErrorHandlingGlobal() {
+        this.app.use((err:Error , request: Request, response: Response, next: NextFunction) => {
+            if(err instanceof AppError) {
+                return response.status(err.statusCode).json({
+                    status: 'error',
+                    message: err.message,
+                })
+            }
+
+            console.log(err);
+
+            return response.status(500).json({
+                status: 'error',
+                message: 'My internal server error',
+            })
+        })
     }
 
     private routes() {

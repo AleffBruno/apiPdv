@@ -1,7 +1,8 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn} from "typeorm";
 import { Length, IsNotEmpty } from "class-validator";
 import * as bcrypt from "bcryptjs";
 import { Company } from "./Company";
+import { Sale } from "./Sale";
 @Entity('users')
 export class User {
 
@@ -12,7 +13,7 @@ export class User {
     @Column()
     name: string;
 
-    @Column()
+    @Column({unique: true})
     email: string;
 
     // @Length(4, 20)
@@ -29,10 +30,22 @@ export class User {
     @Column()
     phone: string;
 
+    @Column({nullable: true})
+    avatar: string;
+
+    @CreateDateColumn()
+    created_at: Date;
+
+    @UpdateDateColumn()
+    updated_at: Date;
+
     @ManyToOne(type => Company, company => company.users,/* {
         cascade: ['insert']
     } */)
     company: Company;
+
+    @OneToMany(type => Sale, sale => sale.user)
+    sales: Sale[];
 
     hashPassword(password : string) {
         // return this.password = bcrypt.hashSync(password, 8);
