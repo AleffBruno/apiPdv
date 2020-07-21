@@ -41,4 +41,6 @@ testes {
         ]
     }
     > agora escreva arquivos de testes e depois use o comando $ npm run test
+
+    > será usado repositorios fakes para testes
 }
