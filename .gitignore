@@ -3,6 +3,7 @@ dist
 .idea/
 build/
 temp/
+coverage
 
 tmp/*
 !tmp/.gitkeep

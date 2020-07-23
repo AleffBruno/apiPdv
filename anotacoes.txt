@@ -38,9 +38,18 @@ testes {
         preset: 'ts-jest',
         testMatch: [  
             "**/*.spec.ts",
-        ]
+        ],
+        collectCoverage: true,
+        collectCoverageFrom: [
+            '<rootDir>/src/app/services/*.ts'
+        ],
+        coverageDirectory: "coverage",
+        coverageReporters: [
+          "text-summary",
+          "lcov",
+        ],
     }
     > agora escreva arquivos de testes e depois use o comando $ npm run test
 
-    > será usado repositorios fakes para testes
+    
 }
