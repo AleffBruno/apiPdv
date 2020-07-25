@@ -1,18 +1,18 @@
 import { Request, Response } from "express";
-import * as jwt from "jsonwebtoken";
-import authConfig from '../../config/auth';
-import { getRepository } from "typeorm";
+
 import SessionService from '../services/SessionService';
-
-import { User } from "../models/User";
-
+import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
+import IUsersRepository from "../repositories/IUsersRepository";
 
 class SessionController{
+
     public login = async (request:Request, response:Response) : Promise<Response> => {
+        
+        let usersRepository : IUsersRepository = new UsersRepository();
 
         const { email, password } = request.body;
 
-        const sessionService = new SessionService();
+        const sessionService = new SessionService(usersRepository);
 
         const { user, token } = await sessionService.login({email, password});
 

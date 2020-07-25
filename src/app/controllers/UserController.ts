@@ -3,12 +3,14 @@ import UserService from '../services/UserService';
 import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 import authConfig from '../../config/auth';
+import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
+import IUsersRepository from '../repositories/IUsersRepository';
 
 class UserController {
 
     public create = async (request:Request, response:Response) : Promise<Response> => {
         
-        // const userRepository = getRepository(User); //estou repetindo isso, ta ruim
+        let usersRepository : IUsersRepository = new UsersRepository();
 
         //transformação de dados fica aqui, exemplo: transformar o email do cara em minuscolo
 
@@ -16,7 +18,7 @@ class UserController {
 
         //COLOCAR VALIDAÇÕES DO 'class-validator' aqui depois
 
-        const userService = new UserService();
+        const userService = new UserService(usersRepository);
 
         const user = await userService.create({name, email, password, commission, phone});
 
@@ -34,16 +36,18 @@ class UserController {
 
     public GetUsers = async (request:Request, response:Response) : Promise<Response> => {
         // const userRepository = getRepository(User); //estou repetindo isso, ta ruim
-        
-        const userService = new UserService();
+        let usersRepository : IUsersRepository = new UsersRepository();
+
+        const userService = new UserService(usersRepository);
         const users = await userService.getUsers();
         return response.json({users}) ;
     };
 
     public uploadAvatarImage = async (request:Request, response:Response) : Promise<Response> => {
         // console.log(request.file);
-        
-        const userService = new UserService();
+        let usersRepository : IUsersRepository = new UsersRepository();
+
+        const userService = new UserService(usersRepository);
         const userId = response.locals.jwtPayload.userId;
 
         const user = await userService.updateUserAvatar({user_id: userId, avatarFilename: request.file.filename });
@@ -52,8 +56,6 @@ class UserController {
 
         return response.json(user);
 
-        
-        
     };
 }
 
