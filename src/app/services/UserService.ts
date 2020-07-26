@@ -23,7 +23,7 @@ interface updateUserAvatarRequestDTO {
 class UserService {
 
     constructor(
-        @inject('userRepository')
+        @inject('UsersRepository')
         private usersRepository: IUsersRepository
     ) {}
 
