@@ -50,6 +50,13 @@ testes {
         ],
     }
     > agora escreva arquivos de testes e depois use o comando $ npm run test
+}
 
-    
+injecao de dependencias {
+    $ yarn add tsyringe
+    > quando se usa injeção de dependencia, fica um script crontrolando as injeçoes de dependencias da aplicação
+    > foi criado a pasta 'app/container' e dentro index.ts ( veja o arquivo )
+    > apos isso, fui no UserService e importei 'injectable, inject' do tsyringe ( veja o arquivo ) 
+    > depois importe o 'app/container/index' em App.ts
+    > agora em vez de chamar os services new UserService(), sera usado container.resolve(UserService) ( container é um import do tsyringe )
 }

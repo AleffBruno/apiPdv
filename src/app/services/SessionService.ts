@@ -4,6 +4,7 @@ import { sign } from "jsonwebtoken";
 import authConfig from '../../config/auth';
 import AppError from '../../errors/AppError';
 import IUsersRepository from '../repositories/IUsersRepository';
+import { injectable, inject } from 'tsyringe';
 
 interface RequestDTO {
     email: string,
@@ -14,14 +15,17 @@ interface ResponseDTO {
     user: User,
     token: string
 }
-
+@injectable()
 class SessionService {
 
-    constructor(private userRepository: IUsersRepository) {}
+    constructor(
+        @inject('UsersRepository')
+        private usersRepository: IUsersRepository
+    ) {}
 
     public async login({email, password} : RequestDTO) : Promise<ResponseDTO> {
         
-        const user = await this.userRepository.findByEmail(email);
+        const user = await this.usersRepository.findByEmail(email);
 
         if(!user) {
             throw new AppError('Incorrect email/password combination.', 401);

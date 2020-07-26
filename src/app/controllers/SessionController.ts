@@ -1,18 +1,17 @@
 import { Request, Response } from "express";
 
 import SessionService from '../services/SessionService';
-import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
-import IUsersRepository from "../repositories/IUsersRepository";
+import { container } from 'tsyringe';
+// import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
+// import IUsersRepository from "../repositories/IUsersRepository";
 
 class SessionController{
 
     public login = async (request:Request, response:Response) : Promise<Response> => {
         
-        let usersRepository : IUsersRepository = new UsersRepository();
-
         const { email, password } = request.body;
 
-        const sessionService = new SessionService(usersRepository);
+        const sessionService = container.resolve(SessionService);
 
         const { user, token } = await sessionService.login({email, password});
 

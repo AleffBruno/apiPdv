@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "test": "jest",
     "devTsc": "tsc-watch --onSuccess \"node ./dist/server.js\"",
     "devNodemon": "nodemon --watch src/ --exec \"ts-node src/server.ts\" -e ts",
@@ -35,6 +36,7 @@
     "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
     "tsc-watch": "^4.2.6",
+    "tsyringe": "^4.3.0",
     "typeorm": "^0.2.25",
     "typescript": "^3.9.2"
   },

@@ -12,24 +12,29 @@ import fs from 'fs';
 import AppError from '../../errors/AppError';
 import IUsersRepository from '../repositories/IUsersRepository';
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
+import { injectable, inject } from 'tsyringe';
 
 interface updateUserAvatarRequestDTO {
     user_id: number,
     avatarFilename: string
 }
 
+@injectable()
 class UserService {
 
-    constructor(private userRepository: IUsersRepository) {}
+    constructor(
+        @inject('userRepository')
+        private usersRepository: IUsersRepository
+    ) {}
 
     public getUsers() : Promise<User[]> {
         // let userRepository = getConnection().getRepository(User);
-        return this.userRepository.getAll(); // ta faltando await?
+        return this.usersRepository.getAll(); // ta faltando await?
     }
 
     public async create({ name, email, password, commission, phone } : ICreateUserDTO) : Promise<User> {
         // const userRepository = getRepository(User);
-        const userExists = await this.userRepository.findByEmail(email);
+        const userExists = await this.usersRepository.findByEmail(email);
 
         if(userExists) {
             throw new AppError('email aready exists');
@@ -37,7 +42,7 @@ class UserService {
 
         const hashedPassword = await bcrypt.hash(password, 8);
 
-        const user = await this.userRepository.create({
+        const user = await this.usersRepository.create({
             name,
             email,
             password: hashedPassword,
@@ -58,7 +63,7 @@ class UserService {
 
     public async updateUserAvatar({ user_id , avatarFilename } : updateUserAvatarRequestDTO ) : Promise<User> {
 
-        const user = await this.userRepository.findById(user_id);
+        const user = await this.usersRepository.findById(user_id);
 
         if(!user) {
             throw new AppError('Only authenticated users can change avatar', 401);
@@ -76,7 +81,7 @@ class UserService {
 
         user.avatar = avatarFilename;
 
-        await this.userRepository.save(user);
+        await this.usersRepository.save(user);
 
         return user;
     }

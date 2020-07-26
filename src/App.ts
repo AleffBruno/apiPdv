@@ -12,7 +12,8 @@ import uploadConfig from './config/upload';
 
 import dotenv from "dotenv";
 import AppError from "./errors/AppError";
-dotenv.config(); 
+dotenv.config();
+import './app/container/index';
 
 class App {
     public app : express.Application;
