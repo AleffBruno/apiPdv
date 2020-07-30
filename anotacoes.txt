@@ -29,6 +29,7 @@ erro handler global {
 
 // focado em testes em typescript
 testes {
+    ATENÇÃO: se os 'import' das libs usarem "@algo/algo/algo", é necessario ajustar o jest.config com const { pathsToModuleNameMapper } = require('ts-jest/utils'); depois altere "moduleNameMapper"
     $ npm i jest -D
     $ npm i -D @types/jest
     $ yarn jest --init
